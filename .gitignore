@@ -25,3 +25,10 @@ proguard/
 
 # Log Files
 *.log
+
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+.idea
+*.iml
+manifest-merger-*-report.txt

@@ -1,0 +1,43 @@
+<configuration>
+
+    <property name="LOG_DIR" value="/sdcard/log" />
+
+    <!-- Create a logcat appender -->
+    <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
+        <encoder>
+            <pattern>%method - %msg</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/mond-dev.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%-5level %d{HH:mm:ss.SSS} [%thread %F:%L] %method - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/mond.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_DIR}/mond-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level %d{HH:mm:ss.SSS} [%thread %F:%L] %method - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Write INFO (and higher-level) messages to logcat -->
+    <logger name="guriguri.mond" level="DEBUG" />
+    <root level="INFO">
+        <appender-ref ref="logcat" />
+        <!--<appender-ref ref="file" />-->
+        <appender-ref ref="rollingFile" />
+    </root>
+
+</configuration>
